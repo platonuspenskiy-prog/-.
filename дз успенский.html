@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интересные факты о России | Голубая Россия</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #cfe7f5 0%, #a0c4e2 100%);
+            color: #023b6d;
+            line-height: 1.6;
+            padding: 30px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* контейнер с полупрозрачным голубым фоном */
+        .container {
+            max-width: 1300px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(3px);
+            border-radius: 60px 60px 40px 40px;
+            padding: 30px 35px;
+            box-shadow: 0 25px 40px -10px rgba(0, 40, 80, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* шапка с флагами */
+        .header-flags {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 120px;
+            padding: 10px 25px;
+            border: 2px solid white;
+        }
+
+        .flag-pair {
+            display: flex;
+            gap: 10px;
+        }
+
+        .flag {
+            width: 70px;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 8px 15px rgba(0, 30, 60, 0.3);
+            border: 2px solid white;
+            transition: transform 0.2s;
+        }
+
+        .flag:hover {
+            transform: scale(1.05);
+        }
+
+        .title {
+            font-size: 2.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-shadow: 4px 4px 0 rgba(255, 255, 255, 0.7);
+            color: #003366;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 0 25px;
+            border-radius: 70px;
+            line-height: 1.3;
+        }
+
+        .title span {
+            font-size: 1.8rem;
+            background: white;
+            padding: 5px 18px;
+            border-radius: 60px;
+            margin-left: 10px;
+            color: #1e4f7a;
+        }
+
+        /* путь с фото */
+        .photo-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 35px 0 30px;
+        }
+
+        .photo-item {
+            flex: 1 1 180px;
+            max-width: 240px;
+            border-radius: 50px 50px 30px 30px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 20px 25px -8px #02457a;
+            border: 4px solid white;
+            transition: all 0.25s;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 30px 30px -5px #002b55;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 3px solid #7ab7e0;
+        }
+
+        .photo-caption {
+            text-align: center;
+            padding: 10px 5px;
+            font-weight: 600;
+            color: #024d8a;
+            background: #e6f2ff;
+            font-size: 0.95rem;
+        }
+
+        /* интересные факты — голубая сетка */
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .fact-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px 20px 20px;
+            border-radius: 40px 40px 30px 30px;
+            box-shadow: 0 15px 20px -8px #02315e;
+            border-left: 8px solid #003f77;
+            border-bottom: 8px solid #b0d4f0;
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fact-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-left-color: #ffd966;
+        }
+
+        .fact-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 8px #001f66;
+            background: #2a7ab0;
+            display: inline-block;
+            width: 55px;
+            height: 55px;
+            line-height: 55px;
+            text-align: center;
+            border-radius: 30px 10px 30px 10px;
+            margin-bottom: 20px;
+            border: 3px solid white;
+            box-shadow: 0 5px 0 #003055;
+        }
+
+        .fact-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #012549;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        .fact-detail {
+            font-size: 1rem;
+            color: #024d8a;
+            border-top: 2px dashed #6ca6d0;
+            padding-top: 15px;
+            margin-top: auto;
+        }
+
+        /* маленькие флаги внутри фактов */
+        .inline-flag {
+            width: 32px;
+            height: 20px;
+            margin: 0 5px -3px 5px;
+            border-radius: 6px;
+            border: 1px solid white;
+            box-shadow: 0 2px 5px #002855;
+        }
+
+        /* подвал */
+        .footer-flags {
+            margin-top: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 80px;
+            padding: 15px 30px;
+            border: 2px solid white;
+        }
+
+        .footer-flags img {
+            width: 50px;
+            border-radius: 12px;
+            border: 2px solid white;
+        }
+
+        .footer-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #002856;
+        }
+
+        /* адаптация */
+        @media (max-width: 700px) {
+            .container {
+                padding: 20px 15px;
+            }
+            .title {
+                font-size: 2rem;
+            }
+            .title span {
+                font-size: 1.2rem;
+                display: block;
+                margin: 10px 0 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Шапка с флагами сверху и снизу -->
+        <div class="header-flags">
+            <div class="flag-pair">
+                <img class="flag" src="https://flagcdn.com/w320/ru.png" alt="Флаг России" title="Флаг РФ">
+                <img class="flag" src="https://flagcdn.com/w320/ru.png" alt="Флаг России" title="Флаг РФ">
+            </div>
+            <h1 class="title">🌍 ФАКТЫ <span>о РОССИИ</span></h1>
+            <div class="flag-pair">
+                <img class="flag" src="https://flagcdn.com/w320/ru.png" alt="Флаг России" title="Флаг РФ">
+                <img class="flag" src="https://flagcdn.com/w320/ru.png" alt="Флаг России" title="Флаг РФ">
+            </div>
+        </div>
+
+        <!-- Фотографии Пути / дорог России + российские пейзажи (красивые пути) -->
+        <div class="photo-strip">
+            <div class="photo-item">
+                <!-- фото пути: трасса + флаг -->
+                <img src="https://images.unsplash.com/photo-1516302752625-fcc3c50ae61f?w=400&auto=format&fit=crop" alt="Зимняя дорога в России" loading="lazy">
+                <div class="photo-caption">❄️ Зимний путь — Сибирь</div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1547586696-ea22b4d4235d?w=400&auto=format&fit=crop" alt="Трасса Россия лес" loading="lazy">
+                <div class="photo-caption">🌲 Лесная дорога, Карелия</div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1601823984263-b87b59798b70?w=400&auto=format&fit=crop" alt="Горный путь Алтай" loading="lazy">
+                <div class="photo-caption">⛰️ Горный путь — Алтай</div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1589225935362-aa8e7e8e1c6b?w=400&auto=format&fit=crop" alt="Трасса М11" loading="lazy">
+                <div class="photo-caption">🛣️ Трасса М11 "Нева"</div>
+            </div>
+        </div>
+
+        <!-- Сетка с интересными фактами (везде присутствуют маленькие флаги) -->
+        <h2 style="font-size: 2rem; text-align: center; margin: 25px 0 10px; color: #003070; text-shadow: 2px 2px 0 #afd5f0;">⚡ САМОЕ ИНТЕРЕСНОЕ ⚡</h2>
+
+        <div class="facts-grid">
+            <!-- факт 1 -->
+            <div class="fact-card">
+                <div class="fact-number">1</div>
+                <div class="fact-text">
+                    <img class="inline-flag" src="https://flagcdn.com/w320/ru.png" alt="флаг"> 
+                    Самая большая страна
+                </div>
+                <div class="fact-detail">
+                    Россия занимает 17,1 млн км² — это 1/8 часть суши. Больше, чем Плутон!
+                </div>
+            </div>
+            <!-- факт 2 -->
+            <div class="fact-card">
+                <div class="fact-number">2</div>
+                <div class="fact-text">
+                    <img class="inline-flag" src="https://flagcdn.com/w320/ru.png" alt="флаг"> 
+                    11 часовых поясов
+                </div>
+                <div class="fact-detail">
+                    Когда на западе завтрак, на востоке уже ужин. Разница с США — 21 час.
+                </div>
+            </div>
+            <!-- факт 3 -->
+            <div class="fact-card">
+                <div class="fact-number">3</div>
+                <div class="fact-text">
+                    <img class="inline-flag" src="https://flagcdn.com/w320/ru.png" alt="флаг"> 
+                    Байкал — глубочайшее озеро
+                </div>
+                <div class="fact-detail">
+                    1642 метра глубины, 20% всей пресной воды планеты (кроме ледников).
+                </div>
+            </div>
+            <!-- факт 4 -->
+            <div class="fact-card">
+                <div class="fact-number">4</div>
+                <div class="fact-text">
+                    <img class="inline-flag" src="https://flagcdn.com/w320/ru.png" alt="флаг"> 
+                    Транссиб — рекордсмен
+                </div>
+                <div class="fact-detail">
+                    Ж/д магистраль Москва–Владивосток: 9288 км, 7 дней в пути.
+                </div>
+            </div>
+            <!-- факт 5 -->
+            <div class="fact-card">
+                <div class="fact-number">5</div>
+                <div class="fact-text">
+                    <img class="inline-flag" src="https://flagcdn.com/w320/ru.png" alt="флаг"> 
+                    Метро в Сибири
+                </div>
+                <div class="fact-detail">
+                    Самое северное метро в мире — в Новосибирске (станция «Сибирская»).
+                </div>
+            </div>
+            <!-- факт 6 -->
+            <div class="fact-card">
+                <div class="fact-number">6</div>
+                <div class="fact-text">
+                    <img class="inline-flag" src="https://flagcdn.com/w320/ru.png" alt="флаг"> 
+                    Эрмитаж и коты
+                </div>
+                <div class="fact-detail">
+                    В Зимнем дворце живут 70 котов на госслужбе — охраняют картины от мышей.
+                </div>
+            </div>
+            <!-- факт 7 -->
+            <div class="fact-card">
+                <div class="fact-number">7</div>
+                <div class="fact-text">
+                    <img class="inline-flag" src="https://flagcdn.com/w320/ru.png" alt="флаг"> 
+                    Дороги из дерева
+                </div>
+                <div class="fact-detail">
+                    В Сибири есть «деревянные трассы» — лежневки из лиственницы.
+                </div>
+            </div>
+            <!-- факт 8 -->
+            <div class="fact-card">
+                <div class="fact-number">8</div>
+                <div class="fact-text">
+                    <img class="inline-flag" src="https://flagcdn.com/w320/ru.png" alt="флаг"> 
+                    Озеро с пузырьками
+                </div>
+                <div class="fact-detail">
+                    На Байкале зимой можно увидеть метановые пузыри, замёрзшие подо льдом.
+                </div>
+            </div>
+            <!-- факт 9 (добавим про пути/флаги) -->
+            <div class="fact-card">
+                <div class="fact-number">9</div>
+                <div class="fact-text">
+                    <img class="inline-flag" src="https://flagcdn.com/w320/ru.png" alt="флаг"> 
+                    Путь «из варяг в греки»
+                </div>
+                <div class="fact-detail">
+                    Исторический торговый путь (VIII–XII вв.) проходил через Новгород и Киев.
+                </div>
+            </div>
+            <!-- факт 10 -->
+            <div class="fact-card">
+                <div class="fact-number">10</div>
+                <div class="fact-text">
+                    <img class="inline-flag" src="https://flagcdn.com/w320/ru.png" alt="флаг"> 
+                    Уральские горы — древние
+                </div>
+                <div class="fact-detail">
+                    Им около 300 млн лет. Когда-то они были выше Гималаев.
+                </div>
+            </div>
+        </div>
+
+        <!-- Ещё одна вставка фотографий пути (средняя полоса) -->
+        <div class="photo-strip" style="margin-top: 40px;">
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1599659156805-6b3fc3bf1296?w=400&auto=format&fit=crop" alt="Золотое кольцо дорога" loading="lazy">
+                <div class="photo-caption">🏛️ Дорога Золотого кольца</div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1597246846520-9e3d93c5a0a4?w=400&auto=format&fit=crop" alt="Крымский мост путь" loading="lazy">
+                <div class="photo-caption">🌉 Крымский мост — путь</div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1598908312212-2b1db5eaeea5?w=400&auto=format&fit=crop" alt="Дорога на Камчатку" loading="lazy">
+                <div class="photo-caption">🌋 Вулканический путь, Камчатка</div>
+            </div>
+            <div class="photo-item">
+                <img src="https://images.unsplash.com/photo-1507955987999-df4864ee80d5?w=400&auto=format&fit=crop" alt="Московская улица" loading="lazy">
+                <div class="photo-caption">🏙️ Ночной путь, Москва</div>
+            </div>
+        </div>
+
+        <!-- Флаги в подвале + текст -->
+        <div class="footer-flags">
+            <img src="https://flagcdn.com/w320/ru.png" alt="флаг">
+            <img src="https://flagcdn.com/w320/ru.png" alt="флаг">
+            <span class="footer-text">✧ ВЕЛИКАЯ РОССИЯ ✧</span>
+            <img src="https://flagcdn.com/w320/ru.png" alt="флаг">
+            <img src="https://flagcdn.com/w320/ru.png" alt="флаг">
+        </div>
+
+        <!-- Маленькое примечание про пути и флаги (декор) -->
+        <p style="text-align: center; margin-top: 25px; font-weight: 600; color: #002856; background: rgba(255,255,240,0.5); padding: 12px; border-radius: 60px;">
+            ⚓ Путешествуйте по просторам России 🇷🇺 Каждый путь ведёт к новым открытиям
+        </p>
+    </div>
+
+    <!-- Дополнительные ссылки на скрытые флаги (работоспособность без интернета: фото unsplash могут не загрузиться, но будут placeholder-иконки. флаги через flagcdn работают всегда) -->
+</body>
+</html>
